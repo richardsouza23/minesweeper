@@ -1,8 +1,8 @@
 import { connect, ConnectedProps } from "react-redux";
 import { leftClickAction, rightClickAction } from "../../state/actions";
 import "./tile.css";
-import flag from "../../image/flag-variant.svg";
-// import mine from "../../image/bomb-icon.svg";
+import flag from "../../assets/flag-variant.svg";
+// import mine from "../../assets/bomb-icon.svg";
 
 
 
