@@ -1,6 +1,7 @@
 import { filter, map, range, reduce, set, view } from "ramda";
 import { AnyAction } from "redux";
 import { LEFT_CLICK, RIGHT_CLICK } from "./actions";
+import { MIN_BOARD_HEIGHT, MIN_BOARD_WIDTH, MIN_MINE_COUNT } from "./constants";
 import { isMineLens, minesAroundLens, tileFlaggedLens, tileSelectedLens } from "./selectors";
 
 
@@ -13,7 +14,7 @@ export type TileState = {
   
 export type State = {
     boardWidth: number;
-    boardSize: number;
+    boardHeight: number;
     tiles: TileState[]
 }
 
@@ -22,6 +23,16 @@ type Coordinate = {
     column: number
 }
 
+
+const getInitialState = (
+    boardWidth: number, 
+    boardHeight: number, 
+    mineCount: number
+): State => ({
+    boardWidth,
+    boardHeight,
+    tiles: generateBoard(mineCount, boardHeight*boardWidth)
+});
 
 const generateBoard = (mineCount: number, size: number): TileState[] => {
 
@@ -61,15 +72,14 @@ const hasMine = (tileId: number, state: State) => view(isMineLens(tileId), state
 const getPositionsAround = (
     rootPosition: number, 
     boardWidth: number, 
-    boardSize: number
+    boardHeight: number
 ) => {
 
     const {row, column} = getCoordinates(rootPosition, boardWidth);
-    const rowCount = Math.ceil(boardSize/boardWidth);
     const positionsAround: number[] = [];
 
     for(let i = row-1; i <= row+1 ; i++){
-        if(i >= 0 && i < rowCount) {
+        if(i >= 0 && i < boardHeight) {
 
             for(let j = column-1; j <= column+1 ; j++){
                 if(j >= 0 && j < boardWidth && (i !== row || j !== column)){
@@ -100,7 +110,7 @@ const floodFill = (tileId: number, state: State): State => {
         return state;
     }
 
-    const positionsAround = getPositionsAround(tileId, state.boardWidth, state.boardSize);
+    const positionsAround = getPositionsAround(tileId, state.boardWidth, state.boardHeight);
     const mineCount = filter((pos) => hasMine(pos, state), positionsAround).length;
 
     let newState: State = set(tileSelectedLens(tileId), true, state);
@@ -116,15 +126,15 @@ const floodFill = (tileId: number, state: State): State => {
 
 
 
-
-const initialState: State = {
-    boardWidth: 8,
-    boardSize: 64,
-    tiles: generateBoard(10, 64)
-}
+const initialState: State = getInitialState(
+    MIN_BOARD_WIDTH, 
+    MIN_BOARD_HEIGHT, 
+    MIN_MINE_COUNT
+);
 
 const mainReducer = (state:State = initialState, {type, payload}: AnyAction) => {
 
+    // Debug only
     console.log("TYPE:", type);
     console.log("PAYLOAD:", payload);
     console.log("STATE BEFORE ACTION:", state);
