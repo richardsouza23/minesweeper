@@ -1,8 +1,19 @@
-import { filter, map, range, reduce, set, view } from "ramda";
+import { filter, map, pipe, range, reduce, set } from "ramda";
 import { AnyAction } from "redux";
 import { LEFT_CLICK, RIGHT_CLICK } from "./actions";
 import { MIN_BOARD_HEIGHT, MIN_BOARD_WIDTH, MIN_MINE_COUNT } from "./constants";
-import { isMineLens, minesAroundLens, tileFlaggedLens, tileSelectedLens } from "./selectors";
+import { 
+    flagCountLens, 
+    getFlagCount, 
+    getTotalMines, 
+    getUnselectedTileCount, 
+    hasMine, isFlagged, 
+    isSelected, 
+    minesAroundLens, 
+    tileFlaggedLens, 
+    tileSelectedLens, 
+    unselectedTileCountLens 
+} from "./selectors";
 
 
 export type TileState = {
@@ -15,6 +26,9 @@ export type TileState = {
 export type State = {
     boardWidth: number;
     boardHeight: number;
+    totalMines: number,
+    unselectedTileCount: number,
+    flagCount: number,
     tiles: TileState[]
 }
 
@@ -31,7 +45,10 @@ const getInitialState = (
 ): State => ({
     boardWidth,
     boardHeight,
-    tiles: generateBoard(mineCount, boardHeight*boardWidth)
+    totalMines: mineCount,
+    unselectedTileCount: boardHeight * boardWidth,
+    flagCount: mineCount,
+    tiles: generateBoard(mineCount, boardHeight * boardWidth)
 });
 
 const generateBoard = (mineCount: number, size: number): TileState[] => {
@@ -67,7 +84,6 @@ const getCoordinates = (position: number, width: number): Coordinate => ({
 })
 
 const getPosition = ({row, column}: Coordinate, width: number) => row*width + column;
-const hasMine = (tileId: number, state: State) => view(isMineLens(tileId), state);
 
 const getPositionsAround = (
     rootPosition: number, 
@@ -92,16 +108,23 @@ const getPositionsAround = (
     return positionsAround;
 }
 
-const isSelected = (position: number, state: State): boolean => 
-    view(tileSelectedLens(position), state);
 
-const isFlagged = (position: number, state: State): boolean =>
-    view(tileFlaggedLens(position), state);
+const playerWon = (state: State): boolean => {
+
+    
+
+    return false;
+}
 
 const toggleFlagged = (position: number, state: State) => {
-    const flaggedLens = tileFlaggedLens(position);
-    const currentValue = view(flaggedLens, state);
-    return set(flaggedLens, !currentValue, state);
+        
+    const tileIsFlagged = isFlagged(position, state);
+    const flagCount = getFlagCount(state);
+
+    return pipe(
+        set(tileFlaggedLens(position), !tileIsFlagged),
+        set(flagCountLens, tileIsFlagged ? flagCount+1 : flagCount-1)
+    )(state);
 }
 
 const floodFill = (tileId: number, state: State): State => {
@@ -113,7 +136,10 @@ const floodFill = (tileId: number, state: State): State => {
     const positionsAround = getPositionsAround(tileId, state.boardWidth, state.boardHeight);
     const mineCount = filter((pos) => hasMine(pos, state), positionsAround).length;
 
-    let newState: State = set(tileSelectedLens(tileId), true, state);
+    let newState: State = pipe(
+        set(tileSelectedLens(tileId), true),
+        set(unselectedTileCountLens, getUnselectedTileCount(state) - 1)
+    )(state);
 
     return mineCount > 0 ?
         set(minesAroundLens(tileId), mineCount, newState) :
@@ -144,17 +170,27 @@ const mainReducer = (state:State = initialState, {type, payload}: AnyAction) => 
         case LEFT_CLICK:
             if(isSelected(payload.tileId, state) || isFlagged(payload.tileId, state)){
                 return state;
+
             } else if (hasMine(payload.tileId, state)) {
                 alert("You lost!");
-                return initialState;
+                const { boardWidth, boardHeight, totalMines } = state;
+                return getInitialState(boardWidth, boardHeight, totalMines);
             }
+
+            const newState = floodFill(payload.tileId, state);
             
-            return floodFill(payload.tileId, state);
+            if(getUnselectedTileCount(newState) === getTotalMines(state)){
+                alert("You Won!");
+                const { boardWidth, boardHeight, totalMines } = state;
+                return getInitialState(boardWidth, boardHeight, totalMines)
+            }
+
+            return newState
 
         case RIGHT_CLICK:
             const { tileId } = payload;
 
-            return isSelected(tileId, state) ? 
+            return isSelected(tileId, state) || (getFlagCount(state) === 0 && !isFlagged(tileId, state)) ? 
                 state : 
                 toggleFlagged(tileId, state);
         default:
