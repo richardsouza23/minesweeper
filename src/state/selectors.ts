@@ -1,10 +1,11 @@
 import { lensPath, lensProp, view } from "ramda";
-import { State } from "./reducer";
+import { GameStatus, State } from "./reducer";
 
 const tilesLens = lensProp<State, 'tiles'>('tiles');
 const boardWidthLens = lensProp<State, 'boardWidth'>('boardWidth');
 const isMineLens = (position: number) => lensPath<State, boolean>(["tiles", position, "hasMine"]);
 
+export const gameStatusLens = lensProp<State, "gameStatus">("gameStatus");
 export const flagCountLens = lensProp<State, 'flagCount'>('flagCount');
 export const tileFlaggedLens = (position: number) => lensPath<State, boolean>(["tiles", position, "flagged"]);
 export const tileSelectedLens = (position: number) => lensPath<State, boolean>(["tiles", position, "isSelected"]);
@@ -21,5 +22,6 @@ export const getBoardWidth = view(boardWidthLens);
 export const getUnselectedTileCount = view(unselectedTileCountLens);
 export const getFlagCount = view(flagCountLens);
 export const getTotalMines = view(lensProp<State, 'totalMines'>('totalMines'));
+export const getGameStatus = view(gameStatusLens);
 
 

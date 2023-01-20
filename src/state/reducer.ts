@@ -4,6 +4,7 @@ import { LEFT_CLICK, RIGHT_CLICK } from "./actions";
 import { MIN_BOARD_HEIGHT, MIN_BOARD_WIDTH, MIN_MINE_COUNT } from "./constants";
 import { 
     flagCountLens, 
+    gameStatusLens, 
     getFlagCount, 
     getTotalMines, 
     getUnselectedTileCount, 
@@ -15,6 +16,11 @@ import {
     unselectedTileCountLens 
 } from "./selectors";
 
+export enum GameStatus {
+    WON,
+    LOST,
+    NOT_FINALIZED
+}
 
 export type TileState = {
     isSelected: boolean;
@@ -24,6 +30,7 @@ export type TileState = {
 }
   
 export type State = {
+    gameStatus: GameStatus,
     boardWidth: number;
     boardHeight: number;
     totalMines: number,
@@ -43,6 +50,7 @@ const getInitialState = (
     boardHeight: number, 
     mineCount: number
 ): State => ({
+    gameStatus: GameStatus.NOT_FINALIZED,
     boardWidth,
     boardHeight,
     totalMines: mineCount,
@@ -108,14 +116,6 @@ const getPositionsAround = (
     return positionsAround;
 }
 
-
-const playerWon = (state: State): boolean => {
-
-    
-
-    return false;
-}
-
 const toggleFlagged = (position: number, state: State) => {
         
     const tileIsFlagged = isFlagged(position, state);
@@ -172,17 +172,13 @@ const mainReducer = (state:State = initialState, {type, payload}: AnyAction) => 
                 return state;
 
             } else if (hasMine(payload.tileId, state)) {
-                alert("You lost!");
-                const { boardWidth, boardHeight, totalMines } = state;
-                return getInitialState(boardWidth, boardHeight, totalMines);
+                return set(gameStatusLens, GameStatus.LOST, state);
             }
 
             const newState = floodFill(payload.tileId, state);
             
             if(getUnselectedTileCount(newState) === getTotalMines(state)){
-                alert("You Won!");
-                const { boardWidth, boardHeight, totalMines } = state;
-                return getInitialState(boardWidth, boardHeight, totalMines)
+                return set(gameStatusLens, GameStatus.WON, newState);
             }
 
             return newState
