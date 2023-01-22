@@ -24,7 +24,7 @@ const Board = ({width, tiles, gameStatus}: ConnectedProps<typeof enhance>) => {
 
     const tilesComponents = map(
         (position: number) => {
-            const { isSelected, flagged, minesAround } = tiles[position];
+            const { isSelected, flagged, minesAround, hasMine } = tiles[position];
             return isSelected ? 
                 <SelectedTile 
                     key={position} 
@@ -33,6 +33,8 @@ const Board = ({width, tiles, gameStatus}: ConnectedProps<typeof enhance>) => {
                     key={position} 
                     editable={editable} 
                     flagged={flagged} 
+                    showMine={gameStatus === GameStatus.LOST}
+                    hasMine={hasMine}
                     position={position} />;
         }, 
         range(0, tiles.length)

@@ -177,11 +177,9 @@ const mainReducer = (state:State = initialState, {type, payload}: AnyAction) => 
 
             const newState = floodFill(payload.tileId, state);
             
-            if(getUnselectedTileCount(newState) === getTotalMines(state)){
-                return set(gameStatusLens, GameStatus.WON, newState);
-            }
-
-            return newState
+            return getUnselectedTileCount(newState) === getTotalMines(state) ?
+                set(gameStatusLens, GameStatus.WON, newState) :
+                newState;
 
         case RIGHT_CLICK:
             const { tileId } = payload;

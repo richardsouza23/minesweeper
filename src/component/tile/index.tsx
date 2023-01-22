@@ -3,7 +3,7 @@ import { identity } from "ramda";
 import { leftClickAction, rightClickAction } from "../../state/actions";
 import "./tile.css";
 import flag from "../../assets/flag-variant.svg";
-// import mine from "../../assets/bomb-icon.svg";
+import mine from "../../assets/bomb-icon.svg";
 
 
 
@@ -19,6 +19,8 @@ interface UnselectedTileProps extends ConnectedProps<typeof enhance> {
     flagged: boolean;
     position: number;
     editable: boolean;
+    showMine: boolean;
+    hasMine: boolean;
 }
 
 
@@ -26,6 +28,8 @@ export const UnselectedTile = enhance(({
     flagged, 
     position, 
     editable,
+    showMine,
+    hasMine,
     rightClick, 
     leftClick
 }: UnselectedTileProps) => {
@@ -38,12 +42,16 @@ export const UnselectedTile = enhance(({
     }
 
     const onClick = editable ? (() => leftClick(position)) : identity;
+    const image = showMine && hasMine ? 
+        mine : 
+        (flagged ? flag : null);
+
 
     return (
         <div className="tile unselected-tile" 
             onClick={onClick} 
             onContextMenu={contextMenuClick}>
-            {flagged && <img src={flag} alt=""/>}
+            {image && <img src={image} alt=""/>}
         </div>
     )
 });
@@ -55,8 +63,11 @@ type SelectedTileProps = {
 };
 
 export const SelectedTile = ({minesAround}: SelectedTileProps) => {
+
     return (
-        <div className="tile selected-tile">
+        <div 
+            className="tile selected-tile" 
+            onContextMenu={(e) => e.preventDefault()}>
             <div className="value-container">{minesAround || ""}</div>
         </div>
     )
