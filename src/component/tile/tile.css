@@ -1,37 +1,29 @@
 .tile {
     position: relative;
     border-radius: 3px;
+    width: calc(1em + 6px);
+    height: calc(1em + 6px);
+    box-sizing: border-box;
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .selected-tile {
     background-color: #d3dbed ;
     color: black;
     font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden
-}
-
-.selected-tile .value-container{
-    position: relative;
-    display: inline-block;
-    font-size: 2em;
 }
 
 .unselected-tile {
     background-color: #3a3396;
+    border: 1px solid #d3dbed; 
     cursor: pointer;
-    box-sizing: border-box;
-    border: 1px solid #d3dbed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden
 }
 
 .unselected-tile img {
     flex-shrink: 0;
     min-width: 100%;
-    min-height: 100%
+    min-height: 100%;
 }

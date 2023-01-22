@@ -1,12 +1,7 @@
-
-.board8x8 {
-    display: grid;
-    width: 31.25em;
-    height: 31.25em;
-    grid-template-columns: repeat(8, 1fr);
-    grid-gap: 3px;
-    font-size: 15px;
-    padding: 1.25em;
-    border: 3px solid #3a3947;
+.board {
+    table-layout: fixed;
+    font-size: 25px;
+    padding: 10px;
     background-color: #4a3c39;
+    border-spacing: 1px;
 }

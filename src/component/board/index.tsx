@@ -1,5 +1,5 @@
 import { SelectedTile, UnselectedTile } from "../tile";
-import { map, range } from "ramda";
+import { map, pipe, range, splitEvery } from "ramda";
 import { connect, ConnectedProps } from "react-redux";
 
 import "./board.css";
@@ -26,11 +26,24 @@ const Board = ({width, tiles, gameStatus}: ConnectedProps<typeof enhance>) => {
         (position: number) => {
             const { isSelected, flagged, minesAround } = tiles[position];
             return isSelected ? 
-                <SelectedTile key={position} minesAround={minesAround}/> : 
-                <UnselectedTile key={position} editable={editable} flagged={flagged} position={position} />;
+                <SelectedTile 
+                    key={position} 
+                    minesAround={minesAround}/> : 
+                <UnselectedTile 
+                    key={position} 
+                    editable={editable} 
+                    flagged={flagged} 
+                    position={position} />;
         }, 
         range(0, tiles.length)
     );
+
+    const table = pipe(
+        map((tile: JSX.Element) => <td>{tile}</td>),
+        splitEvery(width),
+        map((row: JSX.Element[]) => <tr>{row}</tr>)
+    )(tilesComponents);
+    
 
     useEffect(() => {
         const delay = 200;
@@ -47,9 +60,9 @@ const Board = ({width, tiles, gameStatus}: ConnectedProps<typeof enhance>) => {
 
     
     return (
-        <div className="board8x8">
-            {tilesComponents}
-        </div>
+        <table className="board">
+            {table}
+        </table>
     )
 }
 
