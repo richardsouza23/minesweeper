@@ -1,5 +1,5 @@
 import { lensPath, lensProp, view } from "ramda";
-import { GameStatus, State } from "./reducer";
+import { State } from "./reducer";
 
 const tilesLens = lensProp<State, 'tiles'>('tiles');
 const boardWidthLens = lensProp<State, 'boardWidth'>('boardWidth');

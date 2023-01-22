@@ -1,6 +1,7 @@
 import { connect, ConnectedProps } from "react-redux";
 import { identity } from "ramda";
 import { leftClickAction, rightClickAction } from "../../state/actions";
+
 import "./tile.css";
 import flag from "../../assets/flag-variant.svg";
 import mine from "../../assets/bomb-icon.svg";

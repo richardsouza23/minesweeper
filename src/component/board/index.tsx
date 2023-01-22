@@ -1,11 +1,11 @@
-import { SelectedTile, UnselectedTile } from "../tile";
+import { useEffect } from "react";
 import { map, pipe, range, splitEvery } from "ramda";
 import { connect, ConnectedProps } from "react-redux";
 
-import "./board.css";
+import { SelectedTile, UnselectedTile } from "../tile";
 import { GameStatus, State } from "../../state/reducer";
 import { getBoardWidth, getGameStatus, getTiles } from "../../state/selectors";
-import { useEffect } from "react";
+import "./board.css";
 
 
 

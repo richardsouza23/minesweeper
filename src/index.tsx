@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
 import App from './component/App';
 import mainReducer from './state/reducer';
-import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
+import './index.css';
 
 
 
