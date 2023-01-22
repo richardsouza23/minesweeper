@@ -6,7 +6,14 @@ function App() {
 
   return (
     <div className="App">
-      <Board/>
+
+      <div className='sidebar'>
+
+      </div>
+
+      <div className="board-container">
+        <Board/>
+      </div>
     </div>
   );
 }

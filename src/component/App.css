@@ -1,5 +1,24 @@
 .App {
     position: relative;
-    left: 20px;
-    top: 20px;
+}
+
+.App .sidebar {
+    display: inline-block;
+    position: fixed;
+    height: 100vh;
+    width: 250px;
+    background-color: #d3dbed;
+    border-right: 3px solid #4a3c39;
+    box-sizing: border-box;
+}
+
+.App .board-container {
+    position: fixed;
+    left: 250px;
+    width: calc(100vw - 250px);
+    height: 100vh;
+    display: inline-block;
+    overflow: scroll;
+    padding: 5px;
+    box-sizing: border-box;
 }

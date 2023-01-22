@@ -20,8 +20,6 @@ const enhance = connect(
 
 const Board = ({width, tiles, gameStatus}: ConnectedProps<typeof enhance>) => {
 
-    const editable = gameStatus === GameStatus.NOT_FINALIZED;
-
     const tilesComponents = map(
         (position: number) => {
             const { isSelected, flagged, minesAround, hasMine } = tiles[position];
@@ -31,7 +29,7 @@ const Board = ({width, tiles, gameStatus}: ConnectedProps<typeof enhance>) => {
                     minesAround={minesAround}/> : 
                 <UnselectedTile 
                     key={position} 
-                    editable={editable} 
+                    editable={gameStatus === GameStatus.NOT_FINALIZED} 
                     flagged={flagged} 
                     showMine={gameStatus === GameStatus.LOST}
                     hasMine={hasMine}
@@ -62,9 +60,11 @@ const Board = ({width, tiles, gameStatus}: ConnectedProps<typeof enhance>) => {
 
     
     return (
-        <table className="board">
-            {table}
-        </table>
+        <div className="board">
+            <table>
+                {table}
+            </table>
+        </div>
     )
 }
 
