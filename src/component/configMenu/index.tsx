@@ -28,22 +28,42 @@ type ConfigFieldProps = {
 }
 
 
+const makePresetDescription = (presetName: string, preset: GameConfig) => {
+    return `${presetName}\n(${preset.width}x${preset.height}, ${preset.mineCount} mines)`;
+}
+
 export const PresetOptions = () => {
     const dispatch = useDispatch();
+    const setConfig = (config: GameConfig) => 
+        () => dispatch(newConfigAction(config));
 
     return (
         <div className="preset-options">
-            <div>Presets</div>
-            <CustomButton 
-                label="Easy" 
-                onClick={() => dispatch(newConfigAction(EASY_CONFIG))}/>
+            <div className="title">PRESETS</div>
 
-            <CustomButton 
-                label="Medium" 
-                onClick={() => dispatch(newConfigAction(MEDIUM_CONFIG))}/>
-            <CustomButton 
-                label="Hard" 
-                onClick={() => dispatch(newConfigAction(HARD_CONFIG))}/>
+            <div className="button-container">
+                <CustomButton 
+                    backgroundColor="green"
+                    fontColor="white"
+                    label={makePresetDescription("EASY", EASY_CONFIG)} 
+                    onClick={setConfig(EASY_CONFIG)}/>
+            </div>
+
+            <div className="button-container">
+                <CustomButton 
+                    label={makePresetDescription("MEDIUM", MEDIUM_CONFIG)}
+                    backgroundColor="yellow"
+                    fontColor="#4a3c39"
+                    onClick={setConfig(MEDIUM_CONFIG)}/>
+            </div>
+
+            <div className="button-container">
+                <CustomButton 
+                    label={makePresetDescription("HARD", HARD_CONFIG)}
+                    backgroundColor="red"
+                    fontColor="white" 
+                    onClick={setConfig(HARD_CONFIG)}/>
+            </div>
         </div>
     )
 }

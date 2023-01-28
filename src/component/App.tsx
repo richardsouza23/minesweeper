@@ -13,9 +13,13 @@ function App() {
             <div className='title'>MINESWEEPER</div>
         </div>
 
-        <PresetOptions/>
-        <ConfigMenu/>
+        <div className='presets-container'>
+          <PresetOptions/>
+        </div>
 
+        <div className='custom-config-container'>
+          <ConfigMenu/>
+        </div>
       </div>
 
       <div className="board-container">

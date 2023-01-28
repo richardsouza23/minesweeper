@@ -11,18 +11,26 @@
     border-right: 3px solid #4a3c39;
     box-sizing: border-box;
     z-index: 5;
+    font-family:'Ubuntu';
 }
 
 .App .sidebar .title-container {
     height: 60px;
     font-weight: 700;
-    font-size: 26px;
+    font-size: 28px;
     text-align: center;
+    color: white;
+    background-color: #4a3c39;
+    border-bottom: 2px solid #4a3c39;
 }
 
 .App .sidebar .title-container .title {
     display: inline;
-    vertical-align: middle;
+    vertical-align: sub;
+}
+
+.App .sidebar .presets-container {
+    border-bottom: 2px solid #4a3c39;
 }
 
 .App .board-container {
