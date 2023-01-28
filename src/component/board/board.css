@@ -3,6 +3,7 @@
     background-color: #4a3c39;
     display: inline-block;
     padding: 3px;
+    box-sizing: border-box;
 }
 
 .board table {

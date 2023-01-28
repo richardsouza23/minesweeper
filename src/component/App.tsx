@@ -1,5 +1,6 @@
 import './App.css';
 import Board from './board';
+import { PresetOptions,  ConfigMenu } from './configMenu';
 
 
 function App() {
@@ -8,6 +9,12 @@ function App() {
     <div className="App">
 
       <div className='sidebar'>
+        <div className='title-container'>
+            <div className='title'>MINESWEEPER</div>
+        </div>
+
+        <PresetOptions/>
+        <ConfigMenu/>
 
       </div>
 
