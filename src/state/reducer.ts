@@ -194,7 +194,10 @@ const mainReducer = (state:State = initialState, {type, payload}: AnyAction) => 
 
         case NEW_CONFIG:
             const {width, height, mineCount} = payload;
-            return getInitialState(width, height, mineCount)
+
+            return width*height <= 0 || mineCount > width*height ? 
+                state :
+                getInitialState(width, height, mineCount);
 
         default:
             return state;
