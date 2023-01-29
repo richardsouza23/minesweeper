@@ -1,5 +1,46 @@
 .App {
     position: relative;
-    left: 20px;
-    top: 20px;
+}
+
+.App .sidebar {
+    display: inline-block;
+    position: fixed;
+    height: 100vh;
+    width: 250px;
+    background-color: #d3dbed;
+    border-right: 3px solid #4a3c39;
+    box-sizing: border-box;
+    z-index: 5;
+    font-family:'Verdana';
+}
+
+.App .sidebar .title-container {
+    height: 60px;
+    font-weight: 700;
+    font-size: 28px;
+    text-align: center;
+    color: white;
+    background-color: #4a3c39;
+    border-bottom: 2px solid #4a3c39;
+}
+
+.App .sidebar .title-container .title {
+    display: inline;
+    vertical-align: sub;
+}
+
+.App .sidebar .presets-container,
+.App .sidebar .custom-config-container {
+    border-bottom: 4px solid #4a3c39;
+}
+
+.App .board-container {
+    position: fixed;
+    left: 250px;
+    width: calc(100vw - 250px);
+    height: 100vh;
+    display: inline-block;
+    overflow: scroll;
+    padding: 10px;
+    box-sizing: border-box;
 }

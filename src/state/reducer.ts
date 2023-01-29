@@ -1,7 +1,11 @@
 import { filter, map, pipe, range, reduce, set } from "ramda";
 import { AnyAction } from "redux";
-import { LEFT_CLICK, RIGHT_CLICK } from "./actions";
-import { MIN_BOARD_HEIGHT, MIN_BOARD_WIDTH, MIN_MINE_COUNT } from "./constants";
+import { LEFT_CLICK, NEW_CONFIG, RIGHT_CLICK } from "./actions";
+import { 
+    DEFAULT_BOARD_HEIGHT, 
+    DEFAULT_BOARD_WIDTH, 
+    DEFAULT_MINE_COUNT 
+} from "./constants";
 import { 
     flagCountLens, 
     gameStatusLens, 
@@ -153,9 +157,9 @@ const floodFill = (tileId: number, state: State): State => {
 
 
 const initialState: State = getInitialState(
-    MIN_BOARD_WIDTH, 
-    MIN_BOARD_HEIGHT, 
-    MIN_MINE_COUNT
+    DEFAULT_BOARD_WIDTH, 
+    DEFAULT_BOARD_HEIGHT, 
+    DEFAULT_MINE_COUNT
 );
 
 const mainReducer = (state:State = initialState, {type, payload}: AnyAction) => {
@@ -187,6 +191,14 @@ const mainReducer = (state:State = initialState, {type, payload}: AnyAction) => 
             return isSelected(tileId, state) || (getFlagCount(state) === 0 && !isFlagged(tileId, state)) ? 
                 state : 
                 toggleFlagged(tileId, state);
+
+        case NEW_CONFIG:
+            const {width, height, mineCount} = payload;
+
+            return width*height <= 0 || mineCount > width*height ? 
+                state :
+                getInitialState(width, height, mineCount);
+
         default:
             return state;
     }
