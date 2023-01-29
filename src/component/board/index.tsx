@@ -58,9 +58,11 @@ const Board = ({width, tiles, gameStatus}: ConnectedProps<typeof enhance>) => {
 
     }, [gameStatus]);
 
+    const onContextMenu = (e:React.MouseEvent<HTMLDivElement>) => 
+        e.preventDefault();
     
     return (
-        <div className="board">
+        <div className="board" onContextMenu={onContextMenu}>
             <table>
                 {table}
             </table>

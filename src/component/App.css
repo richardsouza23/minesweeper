@@ -6,7 +6,7 @@
     display: inline-block;
     position: fixed;
     height: 100vh;
-    width: 250px;
+    width: 300px;
     background-color: #d3dbed;
     border-right: 3px solid #4a3c39;
     box-sizing: border-box;
@@ -41,8 +41,8 @@
 
 .App .board-container {
     position: fixed;
-    left: 250px;
-    width: calc(100vw - 250px);
+    left: 300px;
+    width: calc(100vw - 300px);
     height: 100vh;
     display: inline-block;
     overflow: scroll;
