@@ -3,7 +3,6 @@
 }
 
 .default-button {
-    min-width: 100px;
     min-height: 30px;
     cursor: pointer;
     border: none;

@@ -7,6 +7,7 @@ export type ButtonProps = {
     onClick: (e:React.MouseEvent<HTMLButtonElement>) => void,
     backgroundColor?: string,
     fontColor?: string
+    minWidth?: string
 };
 
 
@@ -14,7 +15,8 @@ export const CustomButton = ({
     label, 
     onClick, 
     backgroundColor = "", 
-    fontColor = ""
+    fontColor = "",
+    minWidth = ""
 }: ButtonProps) => {
 
     return (
@@ -22,7 +24,8 @@ export const CustomButton = ({
             <button 
                 style={{
                     backgroundColor,
-                    color: fontColor
+                    color: fontColor,
+                    minWidth
                 }}
                 className="default-button" 
                 onClick={onClick}>

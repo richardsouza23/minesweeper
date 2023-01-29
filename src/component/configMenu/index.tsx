@@ -37,6 +37,8 @@ export const PresetOptions = () => {
     const setConfig = (config: GameConfig) => 
         () => dispatch(newConfigAction(config));
 
+    const minWidth = "214px";
+
     return (
         <div className="preset-options">
             <div className="title">PRESETS</div>
@@ -45,6 +47,7 @@ export const PresetOptions = () => {
                 <CustomButton 
                     backgroundColor="green"
                     fontColor="white"
+                    minWidth={minWidth}
                     label={makePresetDescription("EASY", EASY_CONFIG)} 
                     onClick={setConfig(EASY_CONFIG)}/>
             </div>
@@ -54,6 +57,7 @@ export const PresetOptions = () => {
                     label={makePresetDescription("MEDIUM", MEDIUM_CONFIG)}
                     backgroundColor="yellow"
                     fontColor="#4a3c39"
+                    minWidth={minWidth}
                     onClick={setConfig(MEDIUM_CONFIG)}/>
             </div>
 
@@ -62,6 +66,7 @@ export const PresetOptions = () => {
                     label={makePresetDescription("HARD", HARD_CONFIG)}
                     backgroundColor="red"
                     fontColor="white" 
+                    minWidth={minWidth}
                     onClick={setConfig(HARD_CONFIG)}/>
             </div>
         </div>
