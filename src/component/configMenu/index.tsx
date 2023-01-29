@@ -88,33 +88,42 @@ export const ConfigMenu = () => {
 
     const [configState, setConfigState] = useState(initialConfigState);
     const {width, height, mineCount} = configState;
-
-    console.log("CONFIG STATE:", configState);
     
     return (
       <div className='config-menu'>
-        <div>Custom Config</div>
-        <ConfigField
-            label="Width" 
-            initialValue={width}
-            valueInterval={WIDTH_INTERVAL} 
-            onChange={(width) => setConfigState({...configState, width})} />
+        <div className="title">CUSTOM CONFIG</div>
 
-        <ConfigField
-            label="Height" 
-            initialValue={height}
-            valueInterval={HEIGHT_INTERVAL} 
-            onChange={(height) => setConfigState({...configState, height})} />
-            
-        <ConfigField
-            label="Mines" 
-            initialValue={mineCount}
-            valueInterval={MINE_COUNT_INTERVAL} 
-            onChange={(mineCount) => setConfigState({...configState, mineCount})} />
+        <div className='config-field-container'>
+            <ConfigField
+                label="Width" 
+                initialValue={width}
+                valueInterval={WIDTH_INTERVAL} 
+                onChange={(width) => setConfigState({...configState, width})} />
+        </div>
 
-        <CustomButton 
-            label="Start" 
-            onClick={() => dispatch(newConfigAction(configState))} />
+        <div className='config-field-container'>
+            <ConfigField
+                label="Height" 
+                initialValue={height}
+                valueInterval={HEIGHT_INTERVAL} 
+                onChange={(height) => setConfigState({...configState, height})} />
+        </div>
+
+        <div className='config-field-container'>
+            <ConfigField
+                label="Mines" 
+                initialValue={mineCount}
+                valueInterval={MINE_COUNT_INTERVAL} 
+                onChange={(mineCount) => setConfigState({...configState, mineCount})} />
+        </div>
+
+        <div className="start-btton-container">
+            <CustomButton 
+                label="START" 
+                fontColor="white"
+                backgroundColor="#3a3396"
+                onClick={() => dispatch(newConfigAction(configState))} />
+        </div>
       </div>
     );
 }
@@ -132,7 +141,7 @@ const ConfigField = ({
         onChange(parseInt(e.currentTarget.value))
 
     return (
-        <div>
+        <div className="config-field">
             <span>{label}</span>
             <input 
                 type="number" 

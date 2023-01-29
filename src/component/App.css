@@ -11,7 +11,7 @@
     border-right: 3px solid #4a3c39;
     box-sizing: border-box;
     z-index: 5;
-    font-family:'Ubuntu';
+    font-family:'Verdana';
 }
 
 .App .sidebar .title-container {
@@ -29,8 +29,9 @@
     vertical-align: sub;
 }
 
-.App .sidebar .presets-container {
-    border-bottom: 2px solid #4a3c39;
+.App .sidebar .presets-container,
+.App .sidebar .custom-config-container {
+    border-bottom: 4px solid #4a3c39;
 }
 
 .App .board-container {

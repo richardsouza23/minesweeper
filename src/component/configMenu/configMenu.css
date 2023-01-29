@@ -1,8 +1,10 @@
-.preset-options{
-    padding: 20px 0;
+.preset-options,
+.config-menu {
+    padding: 10px 0;
 } 
 
-.preset-options .title {
+.preset-options .title,
+.config-menu .title {
     font-size: 22px;
     font-weight: bold;
     text-align: center;
@@ -10,8 +12,28 @@
     color: #4a3c39;
 }
 
-.preset-options .button-container {
-    margin-top: 10px;
-    margin-bottom: 10px;
+.preset-options .button-container,
+.config-menu .config-field-container,
+.config-menu .start-btton-container {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.config-field {
+    font-weight: bold;
+    display: inline-block;
+    padding: 8px;
+    border-radius: 4px;
+    color: white;
+    background-color: #4a3c39;
+}
+
+.config-field span{
+    margin-right: 7px;
+}
+
+.config-field input {
+    font-size: 15px;
+    border-radius: 4px;
     text-align: center;
 }

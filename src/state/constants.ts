@@ -25,9 +25,9 @@ export const MEDIUM_CONFIG: GameConfig = {
     mineCount: 40
 } 
 export const HARD_CONFIG: GameConfig = {
-    width: 16,
-    height: 30,
-    mineCount: 99
+    width: 22,
+    height: 22,
+    mineCount: 100
 } 
 
 export const WIDTH_INTERVAL:ConfigInterval = {
@@ -40,5 +40,5 @@ export const HEIGHT_INTERVAL:ConfigInterval = {
 }
 export const MINE_COUNT_INTERVAL:ConfigInterval = {
     minValue: 10,
-    maxValue: 190
+    maxValue: 200
 }
