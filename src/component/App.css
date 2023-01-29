@@ -34,6 +34,11 @@
     border-bottom: 4px solid #4a3c39;
 }
 
+.App .flag-counter-container{
+    text-align: center;
+    margin-top: 10px;
+}
+
 .App .board-container {
     position: fixed;
     left: 250px;

@@ -1,0 +1,22 @@
+.flag-counter {
+    display: inline-block;
+    background-color: #3a3396;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.flag-counter img {
+    display: inline-block;
+    width: 35px;
+    margin-right: 8px;
+}
+
+.flag-counter span {
+    color: yellow;
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 6px;
+    position: relative;
+    vertical-align: top;
+    top: 5px;
+}

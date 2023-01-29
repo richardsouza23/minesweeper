@@ -1,6 +1,7 @@
 import './App.css';
 import Board from './board';
 import { PresetOptions,  ConfigMenu } from './configMenu';
+import FlagCounter from './flagCounter';
 
 
 function App() {
@@ -20,6 +21,11 @@ function App() {
         <div className='custom-config-container'>
           <ConfigMenu/>
         </div>
+
+        <div className='flag-counter-container'>
+           <FlagCounter/>
+        </div>
+
       </div>
 
       <div className="board-container">
