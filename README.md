@@ -1,5 +1,7 @@
 # Minesweeper game
 
+![Alt text](/game.png "Game layout")
+
 ## Get dependencies
 ```
 npm install
