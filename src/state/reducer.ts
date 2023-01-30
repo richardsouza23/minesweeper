@@ -163,12 +163,6 @@ const initialState: State = getInitialState(
 );
 
 const mainReducer = (state:State = initialState, {type, payload}: AnyAction) => {
-
-    // Debug only
-    console.log("TYPE:", type);
-    console.log("PAYLOAD:", payload);
-    console.log("STATE BEFORE ACTION:", state);
-
     
     switch(type){
         case LEFT_CLICK:
