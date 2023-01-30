@@ -38,10 +38,12 @@ const Board = ({width, tiles, gameStatus}: ConnectedProps<typeof enhance>) => {
         range(0, tiles.length)
     );
 
+    let trKey = 0;
+
     const table = pipe(
-        map((tile: JSX.Element) => <td>{tile}</td>),
+        map((tile: JSX.Element) => <td key={tile.key}>{tile}</td>),
         splitEvery(width),
-        map((row: JSX.Element[]) => <tr>{row}</tr>)
+        map((row: JSX.Element[]) => <tr key={trKey++}>{row}</tr>)
     )(tilesComponents);
     
 
@@ -64,7 +66,7 @@ const Board = ({width, tiles, gameStatus}: ConnectedProps<typeof enhance>) => {
     return (
         <div className="board" onContextMenu={onContextMenu}>
             <table>
-                {table}
+                <tbody>{table}</tbody>
             </table>
         </div>
     )
